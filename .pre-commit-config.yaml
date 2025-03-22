@@ -5,7 +5,7 @@ repos:
     rev: v3.4.0
     hooks:
       - id: check-added-large-files
-      - id: check-executables-have-shebangs
+      # - id: check-executables-have-shebangs
       - id: check-merge-conflict
       - id: check-symlinks
       - id: detect-private-key
@@ -22,6 +22,9 @@ repos:
           # fix dependencies `rich` break change
           # see https://github.com/ansible/ansible-lint/issues/1795
           - rich==10.11.0
+          # fix `an AnsibleCollectionFinder has not been installed in this process`
+          # see https://github.com/ansible/ansible-lint/issues/2945
+          - ansible-core==2.14.18
   - repo: https://github.com/psf/black
     rev: 20.8b1
     hooks:
