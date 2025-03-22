@@ -2,68 +2,81 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "molecule: list",
+            "label": "molecule: list @cgroupv1",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}/molecule/@cgroupv1"
             },
             "command": "molecule list"
         },
         {
-            "label": "molecule: test all@cgroupv1",
+            "label": "molecule: list @cgroupv2",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}",
+                "cwd": "${workspaceFolder}/molecule/@cgroupv2"
+            },
+            "command": "molecule list"
+        },
+        {
+            "label": "molecule: test @cgroupv1 all",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/molecule/@cgroupv1",
                 "env": {
-                    "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
+                    "MOLECULE_PROJECT_DIRECTORY": "${workspaceFolder}"
                 }
             },
             "command": [
                 "[ -d /sys/fs/cgroup/memory ] || { echo 'not cgroupv1 host'; exit 1; }",
-                "&& molecule test --scenario-name ubuntu2004@cgroupv1",
-                "&& molecule test --scenario-name ubuntu1804@cgroupv1",
-                "&& molecule test --scenario-name ubuntu1604@cgroupv1",
-                "&& molecule test --scenario-name debian10@cgroupv1",
-                "&& molecule test --scenario-name debian9@cgroupv1",
-                "&& molecule test --scenario-name centos8@cgroupv1",
-                "&& molecule test --scenario-name centos7@cgroupv1"
+                "&& molecule test --scenario-name ubuntu2004",
+                "&& molecule test --scenario-name ubuntu1804",
+                "&& molecule test --scenario-name ubuntu1604",
+                "&& molecule test --scenario-name debian10",
+                "&& molecule test --scenario-name debian9",
+                "&& molecule test --scenario-name centos8",
+                "&& molecule test --scenario-name centos7"
             ]
         },
         {
-            "label": "molecule: test all@cgroupv2",
+            "label": "molecule: test @cgroupv2 all",
             "type": "shell",
             "options": {
-                "cwd": "${workspaceFolder}",
+                "cwd": "${workspaceFolder}/molecule/@cgroupv2",
                 "env": {
-                    "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
+                    "MOLECULE_PROJECT_DIRECTORY": "${workspaceFolder}"
                 }
             },
             "command": [
                 "[ -f /sys/fs/cgroup/cgroup.controllers ] || { echo 'not cgroupv2 host'; exit 1; }",
-                "&& molecule test --scenario-name ubuntu2004@cgroupv2",
-                "&& molecule test --scenario-name ubuntu1804@cgroupv2",
-                "&& molecule test --scenario-name debian10@cgroupv2",
-                "&& molecule test --scenario-name debian9@cgroupv2",
-                "&& molecule test --scenario-name centos8@cgroupv2",
-                "&& molecule test --scenario-name centos7@cgroupv2"
+                "&& molecule test --scenario-name ubuntu2004",
+                "&& molecule test --scenario-name ubuntu1804",
+                "&& molecule test --scenario-name debian10",
+                "&& molecule test --scenario-name debian9",
+                "&& molecule test --scenario-name centos8",
+                "&& molecule test --scenario-name centos7"
             ]
         },
         {
-            "label": "tox-ansible1: list",
+            "label": "tox-ansible1: list tox-ansible5@cgroupv1.ini",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "command": "tox -c tox.ini -a -v"
+            "command": "tox -c tox-ansible5@cgroupv1.ini -a -v"
         },
         {
-            "label": "tox-ansible1: test all@cgroupv1",
+            "label": "tox-ansible1: list tox-ansible5@cgroupv2.ini",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "tox -c tox-ansible5@cgroupv2.ini -a -v"
+        },
+        {
+            "label": "tox-ansible1: test *@cgroupv1.ini",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}",
-                "env": {
-                    "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
-                }
             },
             "command": [
                 "[ -d /sys/fs/cgroup/memory ] || { echo 'not cgroupv1 host'; exit 1; }",
@@ -73,13 +86,10 @@
             ]
         },
         {
-            "label": "tox-ansible1: test all@cgroupv2",
+            "label": "tox-ansible1: test *@cgroupv2.ini",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}",
-                "env": {
-                    "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
-                }
             },
             "command": [
                 "[ -f /sys/fs/cgroup/cgroup.controllers ] || { echo 'not cgroupv2 host'; exit 1; }",
