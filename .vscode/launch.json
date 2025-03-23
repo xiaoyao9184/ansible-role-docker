@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "molecule: list",
+            "name": "molecule: list @cgroupv1",
             "type": "debugpy",
             "request": "launch",
             "module": "molecule",
@@ -11,10 +11,24 @@
                 "--debug", "-vvv",
                 "list"
             ],
+            "cwd": "${workspaceFolder}/molecule/@cgroupv1",
             "justMyCode": false
         },
         {
-            "name": "molecule: test ubuntu2004@cgroupv1",
+            "name": "molecule: list @cgroupv2",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "molecule",
+            "args": [
+                // molecule --debug -vvv list
+                "--debug", "-vvv",
+                "list"
+            ],
+            "cwd": "${workspaceFolder}/molecule/@cgroupv2",
+            "justMyCode": false
+        },
+        {
+            "name": "molecule: test @cgroupv1/ubuntu2004",
             "type": "debugpy",
             "request": "launch",
             "module": "molecule",
@@ -22,15 +36,16 @@
                 // molecule --debug -vvv test --scenario-name ubuntu2004
                 "--debug", "-vvv",
                 "test",
-                "--scenario-name", "ubuntu2004@cgroupv1"
+                "--scenario-name", "ubuntu2004"
             ],
             "env": {
-                "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
+                "MOLECULE_PROJECT_DIRECTORY": "${workspaceFolder}"
             },
+            "cwd": "${workspaceFolder}/molecule/@cgroupv1",
             "justMyCode": false
         },
         {
-            "name": "molecule: test ubuntu2004@cgroupv2",
+            "name": "molecule: test @cgroupv2/ubuntu2004",
             "type": "debugpy",
             "request": "launch",
             "module": "molecule",
@@ -38,57 +53,60 @@
                 // molecule --debug -vvv test --scenario-name ubuntu2004
                 "--debug", "-vvv",
                 "test",
-                "--scenario-name", "ubuntu2004@cgroupv2"
+                "--scenario-name", "ubuntu2004"
             ],
             "env": {
-                "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
+                "MOLECULE_PROJECT_DIRECTORY": "${workspaceFolder}"
             },
+            "cwd": "${workspaceFolder}/molecule/@cgroupv2",
             "justMyCode": false
         },
         {
-            "name": "tox-ansible1: list tox.ini",
+            "name": "tox-ansible1: list tox-ansible5@cgroupv1.ini",
             "type": "debugpy",
             "request": "launch",
             "module": "tox",
             "args": [
-                // "-c", "tox.ini",
+                "-c", "tox-ansible5@cgroupv1.ini",
                 "-a",
                 "-v"
             ],
-            "env": {
-                // not support match with *
-                // "TOX_ANSIBLE_SCENARIO": "ansible5-centos7@cgroupv1"
-            },
             "justMyCode": false
         },
         {
-            "name": "tox-ansible1: test tox.ini/ansible5-centos7@cgroupv1",
+            "name": "tox-ansible1: list tox-ansible5@cgroupv2.ini",
             "type": "debugpy",
             "request": "launch",
             "module": "tox",
             "args": [
-                // "-c", "tox.ini",
-                "-e", "ansible5-centos7@cgroupv1",
+                "-c", "tox-ansible5@cgroupv2.ini",
+                "-a",
                 "-v"
             ],
-            "env": {
-                "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
-            },
             "justMyCode": false
         },
         {
-            "name": "tox-ansible1: test tox.ini/ansible5-ubuntu2004@cgroupv2",
+            "name": "tox-ansible1: test tox-ansible5@cgroupv1.ini/py310-ansible5-@cgroupv1-ubuntu2004",
             "type": "debugpy",
             "request": "launch",
             "module": "tox",
             "args": [
-                // "-c", "tox.ini",
-                "-e", "ansible5-ubuntu2004@cgroupv2",
+                "-c", "tox-ansible5@cgroupv1.ini",
+                "-e", "py310-ansible5-@cgroupv1-ubuntu2004",
                 "-v"
             ],
-            "env": {
-                "ANSIBLE_CONFIG": "${workspaceFolder}/molecule/ansible.old-galaxy.cfg"
-            },
+            "justMyCode": false
+        },
+        {
+            "name": "tox-ansible1: test tox-ansible5@cgroupv2.ini/py310-ansible5-@cgroupv2-ubuntu2004",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tox",
+            "args": [
+                "-c", "tox-ansible5@cgroupv2.ini",
+                "-e", "py310-ansible5-@cgroupv2-ubuntu2004",
+                "-v"
+            ],
             "justMyCode": false
         }
     ]
