@@ -95,29 +95,31 @@ poetry run ansible-lint .
 ### Test molecule scenario
 
 ```bash
-export ANSIBLE_CONFIG=$(pwd)/molecule/ansible.old-galaxy.cfg
-# if on cgroupv1 host
-poetry run molecule --debug -vvv test --scenario-name centos7@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name centos8@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name debian9@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name debian10@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name ubuntu1604@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name ubuntu1804@cgroupv1
-poetry run molecule --debug -vvv test --scenario-name ubuntu2004@cgroupv1
-# if on cgroupv2 host
-poetry run molecule --debug -vvv test --scenario-name centos7@cgroupv2
-poetry run molecule --debug -vvv test --scenario-name centos8@cgroupv2
-poetry run molecule --debug -vvv test --scenario-name debian9@cgroupv2
-poetry run molecule --debug -vvv test --scenario-name debian10@cgroupv2
-# poetry run molecule --debug -vvv test --scenario-name ubuntu1604@cgroupv2
-poetry run molecule --debug -vvv test --scenario-name ubuntu1804@cgroupv2
-poetry run molecule --debug -vvv test --scenario-name ubuntu2004@cgroupv2
+export MOLECULE_PROJECT_DIRECTORY=$(pwd)
+# if host is cgroup v1 use `molecule/@cgroupv1`
+cd molecule/@cgroupv1
+poetry run molecule --debug -vvv test --scenario-name centos7
+poetry run molecule --debug -vvv test --scenario-name centos8
+poetry run molecule --debug -vvv test --scenario-name debian9
+poetry run molecule --debug -vvv test --scenario-name debian10
+poetry run molecule --debug -vvv test --scenario-name ubuntu1604
+poetry run molecule --debug -vvv test --scenario-name ubuntu1804
+poetry run molecule --debug -vvv test --scenario-name ubuntu2004
+# if host is cgroup v2 use `molecule/@cgroupv2`
+cd molecule/@cgroupv2
+poetry run molecule --debug -vvv test --scenario-name centos7
+poetry run molecule --debug -vvv test --scenario-name centos8
+poetry run molecule --debug -vvv test --scenario-name debian9
+poetry run molecule --debug -vvv test --scenario-name debian10
+# poetry run molecule --debug -vvv test --scenario-name ubuntu1604
+poetry run molecule --debug -vvv test --scenario-name ubuntu1804
+poetry run molecule --debug -vvv test --scenario-name ubuntu2004
 ```
 
 ### Test tox environment
 
 ```bash
-export ANSIBLE_CONFIG=$(pwd)/molecule/ansible.old-galaxy.cfg
+export MOLECULE_PROJECT_DIRECTORY=$(pwd)
 # if on cgroupv1 host
 # output first then run tox test
 bash tox-ansible.sh --cgroup=v1 --stdout
