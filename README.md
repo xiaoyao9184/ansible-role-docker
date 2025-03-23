@@ -57,7 +57,7 @@ pipx inject poetry poetry-plugin-export
 # auto find system python verison by [tool.poetry.dependencies]
 poetry env use
 # OR use pyenv to find the path to the python3.8 executable
-poetry env use $(pyenv which python3.8)
+poetry env use $(pyenv which python3.10)
 ```
 
 ### Install dependencies
