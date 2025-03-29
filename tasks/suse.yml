@@ -1,0 +1,9 @@
+---
+- name: suse | Installing Docker
+  ansible.builtin.package:
+    name:
+      - docker
+    state: present
+  become: true
+  register: result
+  until: result is successful
